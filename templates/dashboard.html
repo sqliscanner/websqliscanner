@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - SQLi Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <style>
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 18px;
+            margin-top: 10px;
+            resize: none;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #00bcd4;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        label {
+            font-size: 22px;
+            color: #ccc;
+            display: block;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .result-section {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .result-section p {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 30px;
+            font-size: 18px;
+            color: #00bcd4;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-decor">
+        <div class="circle one"></div>
+        <div class="circle two"></div>
+    </div>
+
+    <div class="container">
+        <div class="glass-card">
+            <h1>🧠 SQLi Scanner Dashboard</h1>
+            <p>Masukkan kalimat SQL di bawah untuk mendeteksi potensi serangan SQL Injection dengan AI.</p>
+            <form method="POST">
+                <label for="sentence">💬 Kalimat SQL:</label>
+                <textarea name="sentence" rows="4" required placeholder="Contoh: SELECT * FROM users WHERE username='admin' --"></textarea>
+                <button type="submit" class="btn">🔍 Scan</button>
+            </form>
+
+            {% if result %}
+            <div class="result-section">
+                <h3>📊 Hasil Prediksi</h3>
+                <p><strong>Label:</strong> {{ result[0] }}</p>
+                <p><strong>Probabilitas:</strong> {{ '%.4f' % result[1] }}</p>
+                <p><strong>Alasan:</strong> {{ reason }}</p>
+            </div>
+            {% endif %}
+
+            <a href="/logout" class="logout-link">🔚 Logout</a>
+        </div>
+    </div>
+</body>
+</html>

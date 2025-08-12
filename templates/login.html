@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - SQLi Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+
+    <!-- Flash alert -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <script>
+          alert("{{ messages[0] }}");
+        </script>
+      {% endif %}
+    {% endwith %}
+
+    <div class="background-decor">
+        <div class="circle one"></div>
+        <div class="circle two"></div>
+    </div>
+
+    <div class="container">
+        <div class="glass-card">
+            <h1>🔐 Login ke SQLi Scanner</h1>
+            <p>Masukkan username dan password Anda</p>
+            <form method="POST">
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p style="margin-top: 20px; color: #ccc;">Belum punya akun? <a href="/register" style="color: #00bcd4;">Daftar disini</a></p>
+        </div>
+    </div>
+</body>
+</html>
